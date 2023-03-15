@@ -356,7 +356,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    private void Update() // FixedUpdate is called once per 1/60s
+    private void Update() // FixedUpdate is called once per 1/60s.
     {
         animatorMesh.SetInteger("mode", playerActionMode);
         if(playerActionMode==0)

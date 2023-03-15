@@ -89,25 +89,26 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(7, 0, 0)), Color.red);
         Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(0, 7, 0)), Color.green);
         Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(0, 0, 7)), Color.blue);
-        if(Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(0, 0, 1)), out touchRay, transform.localScale.z * 0.3f, 1))
+        float checkDist = speed2.magnitude * Time.deltaTime > 0.3f ? speed2.magnitude * Time.deltaTime : 0.3f;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(0, 0, 1)), out touchRay, checkDist, 1))
         {
             //Debug.Log("Ray was cast forward, and we got a hit!");
             transform.position = touchRay.point;
             transform.Translate(transform.forward * (transform.localScale.z * -0.3f), Space.World);
         }
-        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(0, 0, -1)), out touchRay, transform.localScale.z * 0.3f, 1))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(0, 0, -1)), out touchRay, checkDist, 1))
         {
             //Debug.Log("Ray was cast backward, and we got a hit!");
             transform.position = touchRay.point;
             transform.Translate(transform.forward * (transform.localScale.z * 0.3f), Space.World);
         }
-        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(1, 0, 0)), out touchRay, transform.localScale.y * 0.3f, 1))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(1, 0, 0)), out touchRay, checkDist, 1))
         {
             //Debug.Log("Ray was cast right, and we got a hit!");
             transform.position = touchRay.point;
             transform.Translate(transform.right * (transform.localScale.x * -0.3f), Space.World);
         }
-        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(-1, 0, 0)), out touchRay, transform.localScale.y * 0.3f, 1))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(-1, 0, 0)), out touchRay, checkDist, 1))
         {
             //Debug.Log("Ray was cast left, and we got a hit!");
             transform.position = touchRay.point;
@@ -362,7 +363,7 @@ public class PlayerMovement : MonoBehaviour
         {
             //running
             animatorMesh.SetFloat("speed", speed2.magnitude/ (speedCap/6));
-            //CollideWallTic();
+            CollideWallTic();
             MoveCharacter4Tic();
             CollideWallTic();
             JumpAbilityTic();

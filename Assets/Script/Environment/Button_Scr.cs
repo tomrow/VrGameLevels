@@ -14,7 +14,7 @@ public class Button_Scr : MonoBehaviour
     // Start is called before the first frame update.
     void Start()
     {
-        gameObject.AddComponent<Rigidbody>();
+        //gameObject.AddComponent<Rigidbody>();
         stuff = GetComponent<Rigidbody>();
         stuff.useGravity = false;
     }
@@ -76,7 +76,7 @@ public class Button_Scr : MonoBehaviour
 
         /* Checks if the interactor is the player */
         
-        if (other.gameObject.name == ("PLAYER"))
+        if (other.gameObject.name == ("PlayerGroundProbe"))
         {
             buttonDown = true;
             Debug.Log("Player has interacted. SUCCESS!");

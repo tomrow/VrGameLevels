@@ -20,8 +20,8 @@ public class GameStateVariables : MonoBehaviour
     {
         goalCheckCounter = 0;
         health = maxHealth;
-        scoreDisplay = GameObject.Find("ScoreDisplay");
-        scoreDisplayText = scoreDisplay.GetComponent<Text>();
+        //scoreDisplay = GameObject.Find("ScoreDisplay");
+        //scoreDisplayText = scoreDisplay.GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -31,15 +31,15 @@ public class GameStateVariables : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
-        scoreDisplayText.text = Convert.ToString(score);
+        //scoreDisplayText.text = Convert.ToString(score);
         goalCheckCounter += 1;
         goalCheckCounter = goalCheckCounter % 60;
         if (goalCheckCounter == 0)
         {
-            if(GameObject.FindGameObjectsWithTag("Plus").Length < 1)
-            {
-                SceneManager.LoadScene("b");
-            }
+            //if(GameObject.FindGameObjectsWithTag("Plus").Length < 1)
+            //{
+            //    SceneManager.LoadScene("b");
+            //}
         }
 
     }

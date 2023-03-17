@@ -33,6 +33,9 @@ public class PlayerMovement : MonoBehaviour
     Vector2 input2;
     [SerializeField]Vector2 speed2;
     RaycastHit touchRay;
+    RaycastHit xChk;
+    RaycastHit yChk;
+
     public float vspeed;
     public float hspeed;
     //public float vspeed2;
@@ -62,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
     float targetTravelAngleDeg;
     float pushAngleDeg;
     public float jumpForce;
+    public string characterName;
 
     // Start is called before the first frame update
     void Start()
@@ -75,6 +79,12 @@ public class PlayerMovement : MonoBehaviour
         dropShadow = transform.Find("dropShadow");
         dropShadowGraphics = dropShadow.gameObject.GetComponent<MeshRenderer>();
         characterAnimator = transform.Find("body");
+        foreach (Transform child in characterAnimator)
+        {
+            if (child.name != characterName)
+            { child.gameObject.SetActive(false); }
+        }
+
         animatorMesh = GetComponentInChildren<Animator>();
 
 
@@ -83,37 +93,34 @@ public class PlayerMovement : MonoBehaviour
 
     private void CollideWallTic()
     {
-        Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(-7,0, 0)), Color.red);
-        Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(0,-7, 0)), Color.green);
-        Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(0, 0, -7)), Color.blue);
-        Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(7, 0, 0)), Color.red);
-        Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(0, 7, 0)), Color.green);
-        Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(0, 0, 7)), Color.blue);
+        
         float checkDist = speed2.magnitude * Time.deltaTime > 0.3f ? speed2.magnitude * Time.deltaTime : 0.3f;
-        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(0, 0, 1)), out touchRay, checkDist, 1))
+        //checkDist = (speed2.magnitude * Time.deltaTime) * 4;
+        checkDist += 0.1f;
+        Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(-1, 0, 0) * checkDist), Color.red);
+        Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(0, -1, 0) * checkDist), Color.green);
+        Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(0, 0, -1) * checkDist), Color.blue);
+        Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(1, 0, 0) * checkDist), Color.red);
+        Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(0, 1, 0) * checkDist), Color.green);
+        Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(0, 0, 1) * checkDist), Color.blue);
+        Debug.Log(checkDist);
+        for (float rot = 0; rot < 2; rot += 0.125f) //increments of 0.125 degrees collision rays
         {
-            //Debug.Log("Ray was cast forward, and we got a hit!");
-            transform.position = touchRay.point;
-            transform.Translate(transform.forward * (transform.localScale.z * -0.3f), Space.World);
+            Vector3 colAngle = new Vector3(Mathf.Sin(rot*Mathf.PI),0, Mathf.Cos(rot * Mathf.PI));
+            if (Physics.Raycast(transform.position, transform.TransformDirection(colAngle), out touchRay, checkDist, 1))
+            {
+                //Debug.Log("Ray was cast forward, and we got a hit!");
+                transform.position = touchRay.point;
+                //Vector3 colnorm = touchRay.normal;
+                //colnorm.y = 0;
+                transform.Translate(colAngle * (transform.localScale.z * -0.4f), Space.World);
+                //speed2.x *= 0.8f;
+                //speed2.y *= 0.8f;
+            }
         }
-        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(0, 0, -1)), out touchRay, checkDist, 1))
-        {
-            //Debug.Log("Ray was cast backward, and we got a hit!");
-            transform.position = touchRay.point;
-            transform.Translate(transform.forward * (transform.localScale.z * 0.3f), Space.World);
-        }
-        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(1, 0, 0)), out touchRay, checkDist, 1))
-        {
-            //Debug.Log("Ray was cast right, and we got a hit!");
-            transform.position = touchRay.point;
-            transform.Translate(transform.right * (transform.localScale.x * -0.3f), Space.World);
-        }
-        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(-1, 0, 0)), out touchRay, checkDist, 1))
-        {
-            //Debug.Log("Ray was cast left, and we got a hit!");
-            transform.position = touchRay.point;
-            transform.Translate(transform.right * (transform.localScale.x * 0.3f), Space.World);
-        }
+        
+        
+        
     }
     private void CollideFloorPitchModTic()
     {
@@ -293,7 +300,8 @@ public class PlayerMovement : MonoBehaviour
                 angleRun = Mathf.Atan2(speed2.x, speed2.y) * Mathf.Rad2Deg;
             }
         }
-        transform.Translate(new Vector3(speed2.x, 0, speed2.y) * Time.deltaTime, Space.World);
+
+        if (!WallColMoveTic()) { transform.Translate(new Vector3(speed2.x, 0, speed2.y) * Time.deltaTime, Space.World); }
         characterAnimator.eulerAngles = new Vector3(characterAnimator.eulerAngles.x, angleRun, characterAnimator.eulerAngles.z);
     }
 
@@ -352,7 +360,28 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
+    private bool WallColMoveTic()
+    {
+        float checkDist = speed2.magnitude * Time.deltaTime > 0.3f ? speed2.magnitude * Time.deltaTime : 0.3f;
+        checkDist = (speed2.magnitude * Time.deltaTime) * 4;
+        //checkDist += 0.1f;
+        Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(speed2.normalized.x, 0, speed2.normalized.y) * checkDist), Color.red);
+        Debug.Log(checkDist);
+        CollideWallTic();
+        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(speed2.normalized.x, 0, speed2.normalized.y)), out touchRay, checkDist*1.1f, 1))
+        {
+            Debug.Log("Normal!");
+            Vector3 rAngle = transform.position - touchRay.point;
+            rAngle.Normalize();
+            transform.position = touchRay.point;
+            transform.Translate(rAngle * 0.2f);
+            Debug.Log(touchRay.normal);
+            CollideWallTic();
+            return true;
+            
+        }
+        else { return false; }
+    }
 
 
 
@@ -363,8 +392,10 @@ public class PlayerMovement : MonoBehaviour
         {
             //running
             animatorMesh.SetFloat("speed", speed2.magnitude/ (speedCap/6));
-            CollideWallTic();
+            //WallColMoveTic();
+            //CollideWallTic();
             MoveCharacter4Tic();
+            //WallColMoveTic();
             CollideWallTic();
             JumpAbilityTic();
             CollideFloorPitchModTic();

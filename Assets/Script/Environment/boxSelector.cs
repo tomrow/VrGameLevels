@@ -21,6 +21,7 @@ public class boxSelector : MonoBehaviour
     {
         if (PLAYTRIGGER.gameObject.name == "PLAYTRIGGER")
         {
+            Debug.Log("Hit");
             SceneManager.LoadScene("SampleScene");
         }
     }

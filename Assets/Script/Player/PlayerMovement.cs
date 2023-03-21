@@ -384,6 +384,29 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
+    private void CollideCeilingTic()
+    {
+        Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(0, 1, 0) * 0.6f), Color.green);
+        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(0, 1, 0)), out touchRay, transform.localScale.y * 0.6f, 1))
+        {
+            Debug.Log("Ray was cast upward, and we got a hit!");
+            transform.position = touchRay.point;
+            transform.Translate(transform.up * (transform.localScale.y * -0.61f), Space.World);
+            
+            vspeed *= -1.0f;
+            //transform.Translate(transform.up * (transform.localScale.y * (0-Mathf.Abs(vspeed)) ), Space.World);
+
+
+            if (touchRay.collider.gameObject.tag == "Respawn")
+            {
+                gameObject.GetComponent<GameStateVariables>().health = 0; //restart if touching death surface
+            }
+
+
+
+        }
+    }
+
 
     private void Update() // FixedUpdate is called once per 1/60s.
     {
@@ -422,6 +445,7 @@ public class PlayerMovement : MonoBehaviour
             MoveCharacterDuringFreeFall2Tic();
             CollideFloorFreeFallTic();
             CollideWallTic();
+            CollideCeilingTic();
             
         }
         else if (playerActionMode == 6)
@@ -443,6 +467,7 @@ public class PlayerMovement : MonoBehaviour
             MoveCharacterDuringFreeFall2Tic();
             CollideFloorFreeFallTic();
             CollideWallTic();
+            CollideCeilingTic();
             JumpSwitchToFallAnimation();
         }
         //drop shadow

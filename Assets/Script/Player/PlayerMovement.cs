@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
     //public float hspeed2;
     public int animSubID;
     public int jumpHesitationFrames;
-    int hesitationCounter;
+    float hesitationCounter;
     //public float yangle;
     public bool onJumpRamp = false;
     public float angleRun;
@@ -341,9 +341,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void JumpHesitate()
     {
-        if (hesitationCounter != jumpHesitationFrames)
+        if (hesitationCounter < (jumpHesitationFrames)*(1/60))
         {
-            hesitationCounter += 1;
+            hesitationCounter += Time.deltaTime;
         }
         else
         {

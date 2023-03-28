@@ -425,7 +425,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else if(playerActionMode==1)
         {
-            //jumping
+            //stuck1
+            
         }
         else if (playerActionMode == 2)
         {
@@ -433,7 +434,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (playerActionMode == 3)
         {
-            //punching
+            //stuck
+            CollideWallTic();
         }
         else if (playerActionMode == 4)
         {

@@ -102,7 +102,7 @@ MonoBehaviour:
   stuff: {fileID: 0}
   verification: 0
   buttonDown: 0
-  actuator: tenton
+  actuator: TenTonTrigger
   buttonFloor: 0.0008
   buttonCeil: 0.00254
 --- !u!64 &7583026601882110940

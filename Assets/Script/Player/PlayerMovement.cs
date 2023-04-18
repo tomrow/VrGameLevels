@@ -107,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
         for (float rot = 0; rot < 2; rot += 0.125f) //increments of 0.125 degrees collision rays
         {
             Vector3 colAngle = new Vector3(Mathf.Sin(rot*Mathf.PI),0, Mathf.Cos(rot * Mathf.PI));
-            if (Physics.Raycast(transform.position, transform.TransformDirection(colAngle), out touchRay, checkDist, 1))
+            if (Physics.Raycast(transform.position, transform.TransformDirection(colAngle), out touchRay, (checkDist * transform.localScale.x), 1))
             {
                 //Debug.Log("Ray was cast forward, and we got a hit!");
                 transform.position = touchRay.point;
@@ -173,7 +173,7 @@ public class PlayerMovement : MonoBehaviour
         {
             vspeed -= 100f * Time.deltaTime; //gravity
         }
-        transform.Translate(new Vector3(0, vspeed, 0) * Time.deltaTime);
+        transform.Translate((new Vector3(0, vspeed, 0)* transform.localScale.y) * Time.deltaTime);
         //hspeed = 0f;
 
     }
@@ -226,7 +226,7 @@ public class PlayerMovement : MonoBehaviour
         }
         normalisedSpeed = speed2.magnitude;
         speed2 = speed2.normalized * (normalisedSpeed > speedCap ? speedCap : normalisedSpeed);
-        transform.Translate(new Vector3(speed2.x, 0, speed2.y) * Time.deltaTime, Space.World);
+        transform.Translate((new Vector3(speed2.x, 0, speed2.y) * transform.localScale.x) * Time.deltaTime, Space.World);
         //characterAnimator.eulerAngles = new Vector3(characterAnimator.eulerAngles.x, angleRun, characterAnimator.eulerAngles.z);
     }
 
@@ -301,13 +301,13 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (!WallColMoveTic()) { transform.Translate(new Vector3(speed2.x, 0, speed2.y) * Time.deltaTime, Space.World); }
+        if (!WallColMoveTic()) { transform.Translate((new Vector3(speed2.x, 0, speed2.y) * transform.localScale.x) * Time.deltaTime, Space.World); }
         characterAnimator.eulerAngles = new Vector3(characterAnimator.eulerAngles.x, angleRun, characterAnimator.eulerAngles.z);
     }
 
     private void JumpAbilityTic()
     {
-        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(0, -1, 0)), out touchRay, transform.localScale.y * 0.5f, 1))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(0, -1, 0)), out touchRay, (transform.localScale.y * 0.5f), 1))
         {
             if (touchRay.collider.gameObject.tag == "JumpStorageBoost")
             {
@@ -368,13 +368,13 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(speed2.normalized.x, 0, speed2.normalized.y) * checkDist), Color.red);
         Debug.Log(checkDist);
         CollideWallTic();
-        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(speed2.normalized.x, 0, speed2.normalized.y)), out touchRay, checkDist*1.1f, 1))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(speed2.normalized.x, 0, speed2.normalized.y)), out touchRay, (checkDist*1.1f)* transform.localScale.x, 1))
         {
             Debug.Log("Normal!");
             Vector3 rAngle = transform.position - touchRay.point;
             rAngle.Normalize();
             transform.position = touchRay.point;
-            transform.Translate(rAngle * 0.2f);
+            transform.Translate((rAngle * 0.2f) * transform.localScale.y);
             Debug.Log(touchRay.normal);
             CollideWallTic();
             return true;
@@ -477,7 +477,7 @@ public class PlayerMovement : MonoBehaviour
         {
             //enable plane renderer and move shadow transform to raycast hit point
             dropShadowGraphics.enabled = true;
-            dropShadow.position = touchRay.point + Vector3.up * 0.1f;
+            dropShadow.position = touchRay.point + ((Vector3.up * 0.1f)* transform.localScale.y);
         }
         else
         {

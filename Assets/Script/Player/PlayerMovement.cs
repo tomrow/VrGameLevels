@@ -103,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(1, 0, 0) * checkDist), Color.red);
         Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(0, 1, 0) * checkDist), Color.green);
         Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(0, 0, 1) * checkDist), Color.blue);
-        Debug.Log(checkDist);
+        //Debug.Log(checkDist);
         for (float rot = 0; rot < 2; rot += 0.125f) //increments of 0.125 degrees collision rays
         {
             Vector3 colAngle = new Vector3(Mathf.Sin(rot*Mathf.PI),0, Mathf.Cos(rot * Mathf.PI));
@@ -158,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(0, -1, 0)), out touchRay, transform.localScale.y * 0.5f, 1))
         {
-            Debug.Log("Ray was cast downward, and we got a hit! Switching back to running mode");
+            //Debug.Log("Ray was cast downward, and we got a hit! Switching back to running mode");
             playerActionMode = 0;
             transform.position = touchRay.point;
             transform.Translate(transform.up * (transform.localScale.y * 0.5f), Space.World);
@@ -366,16 +366,16 @@ public class PlayerMovement : MonoBehaviour
         checkDist = (speed2.magnitude * Time.deltaTime) * 4;
         //checkDist += 0.1f;
         Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(speed2.normalized.x, 0, speed2.normalized.y) * checkDist), Color.red);
-        Debug.Log(checkDist);
+        //Debug.Log(checkDist);
         CollideWallTic();
         if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(speed2.normalized.x, 0, speed2.normalized.y)), out touchRay, (checkDist*1.1f)* transform.localScale.x, 1))
         {
-            Debug.Log("Normal!");
+            //Debug.Log("Normal!");
             Vector3 rAngle = transform.position - touchRay.point;
             rAngle.Normalize();
             transform.position = touchRay.point;
             transform.Translate((rAngle * 0.2f) * transform.localScale.y);
-            Debug.Log(touchRay.normal);
+            //Debug.Log(touchRay.normal);
             CollideWallTic();
             return true;
             
@@ -389,7 +389,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(0, 1, 0) * 0.6f), Color.green);
         if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(0, 1, 0)), out touchRay, transform.localScale.y * 0.6f, 1))
         {
-            Debug.Log("Ray was cast upward, and we got a hit!");
+            //Debug.Log("Ray was cast upward, and we got a hit!");
             transform.position = touchRay.point;
             transform.Translate(transform.up * (transform.localScale.y * -0.61f), Space.World);
             

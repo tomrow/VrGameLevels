@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -66,6 +67,8 @@ public class PlayerMovement : MonoBehaviour
     float pushAngleDeg;
     public float jumpForce;
     public string characterName;
+    public float deathTimer;
+    public float deathTimerMax;
 
     // Start is called before the first frame update
     void Start()
@@ -122,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
-    private void CollideFloorPitchModTic()
+    private int CollideFloorPitchModTic()
     {
         if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(0, -1, 0)), out touchRay, transform.localScale.y * 0.6f, 1))
         {
@@ -135,7 +138,9 @@ public class PlayerMovement : MonoBehaviour
             }
             if (touchRay.collider.gameObject.tag == "Respawn")
             {
-                gameObject.GetComponent<GameStateVariables>().health = 0; //restart if touching death surface
+                //gameObject.GetComponent<GameStateVariables>().health = 0; //restart if touching death surface
+                playerActionMode = 6;
+                return 1;
             }
 
 
@@ -152,6 +157,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
+        return 0;
 
     }
     private void CollideFloorFreeFallTic()
@@ -384,7 +390,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private void CollideCeilingTic()
+    private int CollideCeilingTic()
     {
         Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(0, 1, 0) * 0.6f), Color.green);
         if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(0, 1, 0)), out touchRay, transform.localScale.y * 0.6f, 1))
@@ -399,12 +405,15 @@ public class PlayerMovement : MonoBehaviour
 
             if (touchRay.collider.gameObject.tag == "Respawn")
             {
-                gameObject.GetComponent<GameStateVariables>().health = 0; //restart if touching death surface
+                //gameObject.GetComponent<GameStateVariables>().health = 0; //restart if touching death surface
+                playerActionMode = 6;
+                return 1;
             }
 
 
 
         }
+        return 0;
     }
 
 
@@ -452,14 +461,16 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (playerActionMode == 6)
         {
+            Debug.Log("Death");
+            Debug.Log(playerActionMode);
             //death
-            //deathTimer += Time.deltaTime;
-            //if(deathTimer > 6)
-            //{ 
-            //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            //    playerActionMode = 0x7fffffff; //way out of bounds so nothing will happen
-            //
-            //}
+            deathTimer += Time.deltaTime;
+            if(deathTimer > deathTimerMax)
+            { 
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                playerActionMode = 0x7fffffff; //way out of bounds so nothing will happen
+            
+            }
         }
         else if (playerActionMode == 8)
         {

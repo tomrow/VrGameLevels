@@ -1334,6 +1334,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: cc9799aeabd76d8429304164a88ea953, type: 2}
+    - target: {fileID: 1591970616918635561, guid: 031c8018083f76d47b407af373e9fb27,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.479
+      objectReference: {fileID: 0}
+    - target: {fileID: 1591970616918635565, guid: 031c8018083f76d47b407af373e9fb27,
+        type: 3}
+      propertyPath: m_TagString
+      value: Respawn
+      objectReference: {fileID: 0}
     - target: {fileID: 1591970616918635567, guid: 031c8018083f76d47b407af373e9fb27,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1375,7 +1385,7 @@ PrefabInstance:
     - target: {fileID: 2856617574177655528, guid: a89c88f66ed3aa5439d4d2594060bf64,
         type: 3}
       propertyPath: characterName
-      value: orb
+      value: beans
       objectReference: {fileID: 0}
     - target: {fileID: 2856617574177655535, guid: a89c88f66ed3aa5439d4d2594060bf64,
         type: 3}
@@ -1833,6 +1843,6 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6207530010996722924, guid: 6aaf77eea8ddf8e4a840d913b1aaa562,
         type: 3}
-      insertIndex: -1
+      insertIndex: 3
       addedObject: {fileID: 796320515}
   m_SourcePrefab: {fileID: 100100000, guid: 6aaf77eea8ddf8e4a840d913b1aaa562, type: 3}

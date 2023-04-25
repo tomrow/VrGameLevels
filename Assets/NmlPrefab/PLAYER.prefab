@@ -471,6 +471,8 @@ MonoBehaviour:
   pushAngle: 0
   jumpForce: 17.07
   characterName: bot
+  deathTimer: 0
+  deathTimerMax: 3
 --- !u!114 &2856617574177655542
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     public float airFriction;
     Transform cameraT;
     Vector2 input2;
-    [SerializeField]Vector2 speed2;
+    [SerializeField] Vector2 speed2;
     RaycastHit touchRay;
     RaycastHit xChk;
     RaycastHit yChk;
@@ -93,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CollideWallTic()
     {
-        
+
         float checkDist = speed2.magnitude * Time.deltaTime > 0.3f ? speed2.magnitude * Time.deltaTime : 0.3f;
         //checkDist = (speed2.magnitude * Time.deltaTime) * 4;
         checkDist += 0.1f;
@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log(checkDist);
         for (float rot = 0; rot < 2; rot += 0.125f) //increments of 0.125 degrees collision rays
         {
-            Vector3 colAngle = new Vector3(Mathf.Sin(rot*Mathf.PI),0, Mathf.Cos(rot * Mathf.PI));
+            Vector3 colAngle = new Vector3(Mathf.Sin(rot * Mathf.PI), 0, Mathf.Cos(rot * Mathf.PI));
             if (Physics.Raycast(transform.position, transform.TransformDirection(colAngle), out touchRay, (checkDist * transform.localScale.x), 1))
             {
                 //Debug.Log("Ray was cast forward, and we got a hit!");
@@ -118,9 +118,9 @@ public class PlayerMovement : MonoBehaviour
                 //speed2.y *= 0.8f;
             }
         }
-        
-        
-        
+
+
+
     }
     private void CollideFloorPitchModTic()
     {
@@ -152,7 +152,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-        
+
     }
     private void CollideFloorFreeFallTic()
     {
@@ -167,13 +167,13 @@ public class PlayerMovement : MonoBehaviour
                 vspeed = 0;
             }
             //TODO: Check for death surfaces.
-            
+
         }
         else
         {
             vspeed -= 100f * Time.deltaTime; //gravity
         }
-        transform.Translate((new Vector3(0, vspeed, 0)* transform.localScale.y) * Time.deltaTime);
+        transform.Translate((new Vector3(0, vspeed, 0) * transform.localScale.y) * Time.deltaTime);
         //hspeed = 0f;
 
     }
@@ -194,11 +194,11 @@ public class PlayerMovement : MonoBehaviour
         Vector2 forceAdd = inputmag.normalized * (hspeed * 4);
         if (true) //smooth accelleration
         {
-                speed2.x += ((inputmag.x - speed2.x) * airAccelleration) * Time.deltaTime;
+            speed2.x += ((inputmag.x - speed2.x) * airAccelleration) * Time.deltaTime;
         }
         if (true)
         {
-                speed2.y += ((inputmag.y - speed2.y) * airAccelleration) * Time.deltaTime;
+            speed2.y += ((inputmag.y - speed2.y) * airAccelleration) * Time.deltaTime;
         }
         speed2.x += forceAdd.x;
         speed2.y += forceAdd.y;
@@ -241,7 +241,7 @@ public class PlayerMovement : MonoBehaviour
         targetTravelAngleDeg = targetTravelAngle * Mathf.Rad2Deg;
         if (input2.magnitude > 0.02)
         {
-            if (speed2.magnitude > minSpeed*6)
+            if (speed2.magnitude > minSpeed * 6)
             {
                 pushAngleDeg = Mathf.SmoothDampAngle(pushAngleDeg, targetTravelAngleDeg, ref turnSmoothVelocity, 0.1f); //Smoothly rotate and limit cornering speed
             }
@@ -255,15 +255,15 @@ public class PlayerMovement : MonoBehaviour
         inputmag = inputmag.normalized * (preinputmag.magnitude > speedCap ? speedCap : preinputmag.magnitude); //recalculate stick values based on calculated angle
         inputmag.x = (float)(Mathf.Round(inputmag.x * 10000f) / 10000);
         inputmag.y = (float)(Mathf.Round(inputmag.y * 10000f) / 10000); //4 decimal places
-        if (Math.Abs(avgPushAngle - pushAngle) > Mathf.PI*1.2f)
+        if (Math.Abs(avgPushAngle - pushAngle) > Mathf.PI * 1.2f)
         {
             speed2 = speed2 * 0.5f; //speed braking thing that I'm not sure is doing anything but it doesnt seem to be causing any weirdness so leave it in or delete it if you want
         }
         avgPushAngle = (avgPushAngle + pushAngle) / 2; //mean current angle with the one from last tic
-        
+
         Vector2 forceAdd = inputmag.normalized * (hspeed * 4);
         if (speed2.magnitude < inputmag.magnitude)
-        { 
+        {
             speed2.x += ((inputmag.x - speed2.x) * gndAccelleration) * Time.deltaTime;
             speed2.y += ((inputmag.y - speed2.y) * gndAccelleration) * Time.deltaTime;
         }
@@ -317,17 +317,17 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                if (vspeed < 0) 
-                { 
+                if (vspeed < 0)
+                {
                     vspeed = 0;
-                    
-                    
+
+
                 }
                 hspeed = 0;
                 onJumpRamp = false;
             }
         }
-        if (Input.GetAxis("JB1") == 1f) 
+        if (Input.GetAxis("JB1") == 1f)
         {
             vspeed = jumpForce; // 70f;
             hspeed = 0f;
@@ -341,7 +341,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void JumpHesitate()
     {
-        if (hesitationCounter < (jumpHesitationFrames)*(1/60))
+        if (hesitationCounter < (jumpHesitationFrames) * (1 / 60))
         {
             hesitationCounter += Time.deltaTime;
         }
@@ -368,7 +368,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(speed2.normalized.x, 0, speed2.normalized.y) * checkDist), Color.red);
         //Debug.Log(checkDist);
         CollideWallTic();
-        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(speed2.normalized.x, 0, speed2.normalized.y)), out touchRay, (checkDist*1.1f)* transform.localScale.x, 1))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(speed2.normalized.x, 0, speed2.normalized.y)), out touchRay, (checkDist * 1.1f) * transform.localScale.x, 1))
         {
             //Debug.Log("Normal!");
             Vector3 rAngle = transform.position - touchRay.point;
@@ -378,7 +378,7 @@ public class PlayerMovement : MonoBehaviour
             //Debug.Log(touchRay.normal);
             CollideWallTic();
             return true;
-            
+
         }
         else { return false; }
     }
@@ -392,7 +392,7 @@ public class PlayerMovement : MonoBehaviour
             //Debug.Log("Ray was cast upward, and we got a hit!");
             transform.position = touchRay.point;
             transform.Translate(transform.up * (transform.localScale.y * -0.61f), Space.World);
-            
+
             vspeed *= -1.0f;
             //transform.Translate(transform.up * (transform.localScale.y * (0-Mathf.Abs(vspeed)) ), Space.World);
 
@@ -411,10 +411,10 @@ public class PlayerMovement : MonoBehaviour
     private void Update() // FixedUpdate is called once per 1/60s.
     {
         animatorMesh.SetInteger("mode", playerActionMode);
-        if(playerActionMode==0)
+        if (playerActionMode == 0)
         {
             //running
-            animatorMesh.SetFloat("speed", speed2.magnitude/ (speedCap/6));
+            animatorMesh.SetFloat("speed", speed2.magnitude / (speedCap / 6));
             //WallColMoveTic();
             //CollideWallTic();
             MoveCharacter4Tic();
@@ -423,10 +423,10 @@ public class PlayerMovement : MonoBehaviour
             JumpAbilityTic();
             CollideFloorPitchModTic();
         }
-        else if(playerActionMode==1)
+        else if (playerActionMode == 1)
         {
             //stuck1
-            
+
         }
         else if (playerActionMode == 2)
         {
@@ -448,11 +448,18 @@ public class PlayerMovement : MonoBehaviour
             CollideFloorFreeFallTic();
             CollideWallTic();
             CollideCeilingTic();
-            
+
         }
         else if (playerActionMode == 6)
         {
             //death
+            //deathTimer += Time.deltaTime;
+            //if(deathTimer > 6)
+            //{ 
+            //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //    playerActionMode = 0x7fffffff; //way out of bounds so nothing will happen
+            //
+            //}
         }
         else if (playerActionMode == 8)
         {
@@ -477,7 +484,7 @@ public class PlayerMovement : MonoBehaviour
         {
             //enable plane renderer and move shadow transform to raycast hit point
             dropShadowGraphics.enabled = true;
-            dropShadow.position = touchRay.point + ((Vector3.up * 0.1f)* transform.localScale.y);
+            dropShadow.position = touchRay.point + ((Vector3.up * 0.1f) * transform.localScale.y);
         }
         else
         {

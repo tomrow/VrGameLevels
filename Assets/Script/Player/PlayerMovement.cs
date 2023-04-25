@@ -135,7 +135,8 @@ public class PlayerMovement : MonoBehaviour
             }
             if (touchRay.collider.gameObject.tag == "Respawn")
             {
-                gameObject.GetComponent<GameStateVariables>().health = 0; //restart if touching death surface
+                //gameObject.GetComponent<GameStateVariables>().health = 0; //restart if touching death surface
+                playerActionMode = 6;
             }
 
 
@@ -399,7 +400,8 @@ public class PlayerMovement : MonoBehaviour
 
             if (touchRay.collider.gameObject.tag == "Respawn")
             {
-                gameObject.GetComponent<GameStateVariables>().health = 0; //restart if touching death surface
+                //gameObject.GetComponent<GameStateVariables>().health = 0; //restart if touching death surface
+                playerActionMode = 6;
             }
 
 
@@ -419,9 +421,9 @@ public class PlayerMovement : MonoBehaviour
             //CollideWallTic();
             MoveCharacter4Tic();
             //WallColMoveTic();
-            CollideWallTic();
-            JumpAbilityTic();
-            CollideFloorPitchModTic();
+            //CollideWallTic();
+            //JumpAbilityTic();
+            //CollideFloorPitchModTic();
         }
         else if (playerActionMode == 1)
         {

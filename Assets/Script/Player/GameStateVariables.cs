@@ -27,13 +27,13 @@ public class GameStateVariables : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        if (health <= 0)
-        {
-            playerMovementData.playerActionMode = 6;
+        //if (health <= 0)
+        //{
+            //playerMovementData.playerActionMode = 6;
             //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+        //}
         //scoreDisplayText.text = Convert.ToString(score);
         goalCheckCounter += 1;
         goalCheckCounter = goalCheckCounter % 60;

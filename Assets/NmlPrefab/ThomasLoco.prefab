@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSpeed: 0.01
-  walkSpeed: 25.4
-  runSpeed: 31.8
+  walkSpeed: 15.8
+  runSpeed: 16.9
   speedCap: 24.9
   turnSmoothTime: 0.2
   stickPushedFromCenter: 0

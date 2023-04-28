@@ -43,18 +43,19 @@ public class EndGoal : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        anima = 0;
-        if (player == null || playerTf == null) 
-        { 
-            player = other.gameObject.GetComponent<PlayerMovement>();
-            playerTf = other.gameObject.transform;
-            audioPlayed = false;
-        }
-        else if (player != null)
+        if(GameObject.FindGameObjectsWithTag("Plus").Length == 0 )
         {
-            player.playerActionMode = 3;//freeze the character in place by punching a wrong value in here
-
-
+            anima = 0;
+            if (player == null || playerTf == null)
+            {
+                player = other.gameObject.GetComponent<PlayerMovement>();
+                playerTf = other.gameObject.transform;
+                audioPlayed = false;
+            }
+            else if (player != null)
+            {
+                player.playerActionMode = 3;//freeze the character in place by punching a wrong value in here
+            }
         }
     }
 }

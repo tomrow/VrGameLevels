@@ -368,6 +368,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool WallColMoveTic()
     {
+        return false;
         float checkDist = speed2.magnitude * Time.deltaTime > 0.3f ? speed2.magnitude * Time.deltaTime : 0.3f;
         checkDist = (speed2.magnitude * Time.deltaTime) * 4;
         //checkDist += 0.1f;

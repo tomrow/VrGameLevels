@@ -14,12 +14,14 @@ public class GameStateVariables : MonoBehaviour
     public GameObject scoreDisplay;
     public Text scoreDisplayText;
     int goalCheckCounter;
+    PlayerMovement playerMovementData;
 
     // Start is called before the first frame update
     void Start()
     {
         goalCheckCounter = 0;
         health = maxHealth;
+        playerMovementData = gameObject.GetComponent<PlayerMovement>();
         //scoreDisplay = GameObject.Find("ScoreDisplay");
         //scoreDisplayText = scoreDisplay.GetComponent<Text>();
     }
@@ -29,7 +31,8 @@ public class GameStateVariables : MonoBehaviour
     {
         if (health <= 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            playerMovementData.playerActionMode = 6;
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         //scoreDisplayText.text = Convert.ToString(score);
         goalCheckCounter += 1;

@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Pissmenu.unity
+    guid: 9910f40a3fb825d478392bfb6627a07e
+  - enabled: 1
     path: Assets/Scenes/Level1.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
@@ -13,7 +16,10 @@ EditorBuildSettings:
     guid: 58b2a22d8784d3946aeed92c6407ad76
   - enabled: 1
     path: Assets/Scenes/Level3.unity
-    guid: 12f290563a0de574c8a5db3002dc7bc4
+    guid: ebd7a406666a50a439521ecb0bddccca
+  - enabled: 1
+    path: Assets/Scenes/playground.unity
+    guid: de774944e58e7e0409ebd24d2906a1b2
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260,
       type: 2}

@@ -382,12 +382,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
-<<<<<<< Updated upstream
-    - targetCorrespondingSourceObject: {fileID: 7805251333301606799, guid: 48de5ad330280524aa1a3cab8a813dec,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 467923885}
-=======
     - targetCorrespondingSourceObject: {fileID: 1538191931872566829, guid: 48de5ad330280524aa1a3cab8a813dec,
         type: 3}
       insertIndex: -1
@@ -396,7 +390,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1142977309}
->>>>>>> Stashed changes
     - targetCorrespondingSourceObject: {fileID: 324426059016692080, guid: 48de5ad330280524aa1a3cab8a813dec,
         type: 3}
       insertIndex: -1
@@ -410,15 +403,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1775388519}
   m_SourcePrefab: {fileID: 100100000, guid: 48de5ad330280524aa1a3cab8a813dec, type: 3}
-<<<<<<< Updated upstream
---- !u!1 &467923884 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7805251333301606799, guid: 48de5ad330280524aa1a3cab8a813dec,
-    type: 3}
-  m_PrefabInstance: {fileID: 467923883}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &467923885
-=======
 --- !u!1 &1142977307 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1538191931872566829, guid: 48de5ad330280524aa1a3cab8a813dec,
@@ -426,15 +410,11 @@ GameObject:
   m_PrefabInstance: {fileID: 467923883}
   m_PrefabAsset: {fileID: 0}
 --- !u!65 &1142977309
->>>>>>> Stashed changes
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< Updated upstream
-  m_GameObject: {fileID: 467923884}
-=======
   m_GameObject: {fileID: 1142977307}
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -457,7 +437,6 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1142977307}
->>>>>>> Stashed changes
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -470,10 +449,6 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-<<<<<<< Updated upstream
-  m_Size: {x: 30.359, y: 221.4925, z: 11.9526005}
-  m_Center: {x: -8.5561, y: 109.614746, z: -2.1887}
-=======
   m_Size: {x: 33.122036, y: 223.1205, z: 10.447501}
   m_Center: {x: -9.811891, y: 66.09115, z: -27.42338}
 --- !u!1 &1299575869
@@ -771,7 +746,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10322564, y: 0.15240006, z: 0.10160006}
   m_Center: {x: 0.044368774, y: -0.0005003594, z: -0.003076649}
->>>>>>> Stashed changes
 --- !u!1001 &1673533035
 PrefabInstance:
   m_ObjectHideFlags: 0

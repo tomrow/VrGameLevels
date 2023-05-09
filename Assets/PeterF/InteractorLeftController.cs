@@ -10,7 +10,7 @@ public class InteractorLeftController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        leftController = GameObject.Find("LeftController");
+        leftController = GameObject.Find("LeftCtrlRayOrigin");
     }
 
     // Update is called once per frame

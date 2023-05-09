@@ -10,7 +10,7 @@ public class InteractorRightController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rightController = GameObject.Find("RightController");
+        rightController = GameObject.Find("RightCtrlRayOrigin");
     }
 
     // Update is called once per frame

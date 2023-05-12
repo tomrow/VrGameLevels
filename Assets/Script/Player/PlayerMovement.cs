@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     public float airFriction;
     Transform cameraT;
     Vector2 input2;
-    [SerializeField] Vector2 speed2;
+    public Vector2 speed2;
     RaycastHit touchRay;
     RaycastHit xChk;
     RaycastHit yChk;

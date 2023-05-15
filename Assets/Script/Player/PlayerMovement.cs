@@ -162,10 +162,13 @@ public class PlayerMovement : MonoBehaviour
     }
     private void CollideFloorFreeFallTic()
     {
-        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(0, -1, 0)), out touchRay, transform.localScale.y * 0.5f, 1))
+        float vray = vspeed < 0 ?  0-vspeed : 0;
+        vray *= Time.deltaTime;
+        if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(0, -1, 0)), out touchRay, (transform.localScale.y * (0.5f + vray)), 1))
         {
             //Debug.Log("Ray was cast downward, and we got a hit! Switching back to running mode");
             playerActionMode = 0;
+            if (input2.magnitude < 0.15f) { speed2 *= 0f; }
             transform.position = touchRay.point;
             transform.Translate(transform.up * (transform.localScale.y * 0.5f), Space.World);
             if (vspeed < 0)

@@ -7,7 +7,7 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/Pissmenu.unity
-    guid: 9910f40a3fb825d478392bfb6627a07e
+    guid: b044e962a296d294ca60736e2000f8dd
   - enabled: 1
     path: Assets/Scenes/Level1.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level3.unity
     guid: ebd7a406666a50a439521ecb0bddccca
+  - enabled: 1
+    path: Assets/Scenes/Level4.unity
+    guid: acb8d472d3aaecf4ba4dc0bab78fa8db
   - enabled: 1
     path: Assets/Scenes/playground.unity
     guid: de774944e58e7e0409ebd24d2906a1b2

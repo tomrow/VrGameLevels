@@ -97,8 +97,8 @@ public class PlayerMovement : MonoBehaviour
     private void CollideWallTic()
     {
 
-        float checkDist = speed2.magnitude * Time.deltaTime > 0.3f ? speed2.magnitude * Time.deltaTime : 0.3f;
-        //checkDist = (speed2.magnitude * Time.deltaTime) * 4;
+        float checkDist = speed2.magnitude * Time.fixedDeltaTime > 0.3f ? speed2.magnitude * Time.fixedDeltaTime : 0.3f;
+        //checkDist = (speed2.magnitude * Time.fixedDeltaTime) * 4;
         checkDist += 0.1f;
         Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(-1, 0, 0) * checkDist), Color.red);
         Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(0, -1, 0) * checkDist), Color.green);
@@ -163,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
     private void CollideFloorFreeFallTic()
     {
         float vray = vspeed < 0 ?  0-vspeed : 0;
-        vray *= Time.deltaTime;
+        vray *= Time.fixedDeltaTime;
         if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(0, -1, 0)), out touchRay, (transform.localScale.y * (0.5f + vray)), 1))
         {
             //Debug.Log("Ray was cast downward, and we got a hit! Switching back to running mode");
@@ -180,9 +180,9 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            vspeed -= 100f * Time.deltaTime; //gravity
+            vspeed -= 100f * Time.fixedDeltaTime; //gravity
         }
-        transform.Translate((new Vector3(0, vspeed, 0) * transform.localScale.y) * Time.deltaTime);
+        transform.Translate((new Vector3(0, vspeed, 0) * transform.localScale.y) * Time.fixedDeltaTime);
         //hspeed = 0f;
 
     }
@@ -200,14 +200,14 @@ public class PlayerMovement : MonoBehaviour
         inputmag.x = (float)(Mathf.Round(inputmag.x * 10000f) / 10000);
         inputmag.y = (float)(Mathf.Round(inputmag.y * 10000f) / 10000); //4 decimal places
 
-        Vector2 forceAdd = inputmag.normalized * (hspeed * 4);
+        Vector2 forceAdd = inputmag.normalized * (hspeed * 1.4f);
         if (true) //smooth accelleration
         {
-            speed2.x += ((inputmag.x - speed2.x) * airAccelleration) * Time.deltaTime;
+            speed2.x += ((inputmag.x - speed2.x) * airAccelleration) * Time.fixedDeltaTime;
         }
         if (true)
         {
-            speed2.y += ((inputmag.y - speed2.y) * airAccelleration) * Time.deltaTime;
+            speed2.y += ((inputmag.y - speed2.y) * airAccelleration) * Time.fixedDeltaTime;
         }
         speed2.x += forceAdd.x;
         speed2.y += forceAdd.y;
@@ -235,7 +235,7 @@ public class PlayerMovement : MonoBehaviour
         }
         normalisedSpeed = speed2.magnitude;
         speed2 = speed2.normalized * (normalisedSpeed > speedCap ? speedCap : normalisedSpeed);
-        transform.Translate((new Vector3(speed2.x, 0, speed2.y) * transform.localScale.x) * Time.deltaTime, Space.World);
+        transform.Translate((new Vector3(speed2.x, 0, speed2.y) * transform.localScale.x) * Time.fixedDeltaTime, Space.World);
         //characterAnimator.eulerAngles = new Vector3(characterAnimator.eulerAngles.x, angleRun, characterAnimator.eulerAngles.z);
     }
 
@@ -273,8 +273,8 @@ public class PlayerMovement : MonoBehaviour
         Vector2 forceAdd = inputmag.normalized * (hspeed * 4);
         if (speed2.magnitude < inputmag.magnitude)
         {
-            speed2.x += ((inputmag.x - speed2.x) * gndAccelleration) * Time.deltaTime;
-            speed2.y += ((inputmag.y - speed2.y) * gndAccelleration) * Time.deltaTime;
+            speed2.x += ((inputmag.x - speed2.x) * gndAccelleration) * Time.fixedDeltaTime;
+            speed2.y += ((inputmag.y - speed2.y) * gndAccelleration) * Time.fixedDeltaTime;
         }
         else if (speed2.magnitude > inputmag.magnitude)
         {
@@ -310,7 +310,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (!WallColMoveTic()) { transform.Translate((new Vector3(speed2.x, 0, speed2.y) * transform.localScale.x) * Time.deltaTime, Space.World); }
+        if (!WallColMoveTic()) { transform.Translate((new Vector3(speed2.x, 0, speed2.y) * transform.localScale.x) * Time.fixedDeltaTime, Space.World); }
         characterAnimator.eulerAngles = new Vector3(characterAnimator.eulerAngles.x, angleRun, characterAnimator.eulerAngles.z);
     }
 
@@ -352,7 +352,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (hesitationCounter < (jumpHesitationFrames) * (1 / 60))
         {
-            hesitationCounter += Time.deltaTime;
+            hesitationCounter += Time.fixedDeltaTime;
         }
         else
         {
@@ -371,17 +371,25 @@ public class PlayerMovement : MonoBehaviour
 
     private bool WallColMoveTic()
     {
-        return false;
-        float checkDist = speed2.magnitude * Time.deltaTime > 0.3f ? speed2.magnitude * Time.deltaTime : 0.3f;
-        checkDist = (speed2.magnitude * Time.deltaTime) * 4;
+        //return false;
+        float checkDist = speed2.magnitude * Time.fixedDeltaTime > 0.3f ? speed2.magnitude * Time.fixedDeltaTime : 0.3f;
+        checkDist = (speed2.magnitude * Time.fixedDeltaTime);
         //checkDist += 0.1f;
-        Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(speed2.normalized.x, 0, speed2.normalized.y) * checkDist), Color.red);
+        //checkDist *= 1.5f;
+        Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(speed2.normalized.x, 0, speed2.normalized.y)) * (checkDist * transform.localScale.x), Color.red);
         //Debug.Log(checkDist);
         CollideWallTic();
+        //Debug.Log(transform.TransformDirection(new Vector3(speed2.normalized.x, 0, speed2.normalized.y)));
+        Debug.Log(checkDist);
         if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(speed2.normalized.x, 0, speed2.normalized.y)), out touchRay, (checkDist * 1.1f) * transform.localScale.x, 1))
         {
             //Debug.Log("Normal!");
-            Vector3 rAngle = transform.position - touchRay.point;
+            //Vector3 rAngle = transform.position - touchRay.point;
+            
+            Debug.Log("Hit");
+            Debug.Log(touchRay.normal);
+            Vector3 rAngle = touchRay.normal;
+            rAngle.y = 0;
             rAngle.Normalize();
             transform.position = touchRay.point;
             transform.Translate((rAngle * 0.2f) * transform.localScale.y);
@@ -390,7 +398,11 @@ public class PlayerMovement : MonoBehaviour
             return true;
 
         }
-        else { return false; }
+        else 
+        {
+            
+            return false; 
+        }
     }
 
 
@@ -421,7 +433,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private void Update() // FixedUpdate is called once per 1/60s.
+    private void FixedUpdate() // FixedUpdate is called once per 1/60s.
     {
         animatorMesh.SetInteger("mode", playerActionMode);
         if (playerActionMode == 0)
@@ -468,7 +480,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Death");
             Debug.Log(playerActionMode);
             //death
-            deathTimer += Time.deltaTime;
+            deathTimer += Time.fixedDeltaTime;
             if(deathTimer > deathTimerMax)
             { 
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -505,6 +517,10 @@ public class PlayerMovement : MonoBehaviour
         {
             //missed, maybe above a bottomless pit? whatever the ground is so far below we can hide the drop shadow
             dropShadowGraphics.enabled = false;
+        }
+        if (Input.GetButton("XRI_Left_MenuButton") && Input.GetButton("XRI_Left_PrimaryButton") && Input.GetButton("XRI_Left_SecondaryButton"))
+        {
+            SceneManager.LoadScene("Pissmenu");
         }
 
     }

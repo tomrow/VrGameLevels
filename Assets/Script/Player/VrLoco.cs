@@ -66,8 +66,8 @@ public class VrLoco : MonoBehaviour
     private void CollideWallTic()
     {
 
-        float checkDist = speed2.magnitude * Time.deltaTime > 0.3f ? speed2.magnitude * Time.deltaTime : 0.3f;
-        //checkDist = (speed2.magnitude * Time.deltaTime) * 4;
+        float checkDist = speed2.magnitude * Time.fixedDeltaTime > 0.3f ? speed2.magnitude * Time.fixedDeltaTime : 0.3f;
+        //checkDist = (speed2.magnitude * Time.fixedDeltaTime) * 4;
         checkDist += 0.1f;
         Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(-1, 0, 0) * checkDist), Color.red);
         Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(0, -1, 0) * checkDist), Color.green);
@@ -129,8 +129,8 @@ public class VrLoco : MonoBehaviour
         Vector2 forceAdd = inputmag.normalized * (hspeed * 4);
         if (speed2.magnitude < inputmag.magnitude)
         {
-            speed2.x += ((inputmag.x - speed2.x) * gndAccelleration) * Time.deltaTime;
-            speed2.y += ((inputmag.y - speed2.y) * gndAccelleration) * Time.deltaTime;
+            speed2.x += ((inputmag.x - speed2.x) * gndAccelleration) * Time.fixedDeltaTime;
+            speed2.y += ((inputmag.y - speed2.y) * gndAccelleration) * Time.fixedDeltaTime;
         }
         else if (speed2.magnitude > inputmag.magnitude)
         {
@@ -166,7 +166,7 @@ public class VrLoco : MonoBehaviour
             }
         }
 
-        if (!WallColMoveTic()) { transform.Translate((new Vector3(speed2.x, 0, speed2.y) * transform.localScale.x) * Time.deltaTime, Space.World); }
+        if (!WallColMoveTic()) { transform.Translate((new Vector3(speed2.x, 0, speed2.y) * transform.localScale.x) * Time.fixedDeltaTime, Space.World); }
         
     }
 
@@ -176,16 +176,25 @@ public class VrLoco : MonoBehaviour
 
     private bool WallColMoveTic()
     {
-        float checkDist = speed2.magnitude * Time.deltaTime > 0.3f ? speed2.magnitude * Time.deltaTime : 0.3f;
-        checkDist = (speed2.magnitude * Time.deltaTime) * 4;
+        //return false;
+        float checkDist = speed2.magnitude * Time.fixedDeltaTime > 0.3f ? speed2.magnitude * Time.fixedDeltaTime : 0.3f;
+        checkDist = (speed2.magnitude * Time.fixedDeltaTime);
         //checkDist += 0.1f;
-        Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(speed2.normalized.x, 0, speed2.normalized.y) * checkDist), Color.red);
+        //checkDist *= 1.5f;
+        Debug.DrawRay(transform.position, transform.TransformDirection(new Vector3(speed2.normalized.x, 0, speed2.normalized.y)) * (checkDist * transform.localScale.x), Color.red);
         //Debug.Log(checkDist);
         CollideWallTic();
+        //Debug.Log(transform.TransformDirection(new Vector3(speed2.normalized.x, 0, speed2.normalized.y)));
+        Debug.Log(checkDist);
         if (Physics.Raycast(transform.position, transform.TransformDirection(new Vector3(speed2.normalized.x, 0, speed2.normalized.y)), out touchRay, (checkDist * 1.1f) * transform.localScale.x, 1))
         {
             //Debug.Log("Normal!");
-            Vector3 rAngle = transform.position - touchRay.point;
+            //Vector3 rAngle = transform.position - touchRay.point;
+
+            Debug.Log("Hit");
+            Debug.Log(touchRay.normal);
+            Vector3 rAngle = touchRay.normal;
+            rAngle.y = 0;
             rAngle.Normalize();
             transform.position = touchRay.point;
             transform.Translate((rAngle * 0.2f) * transform.localScale.y);
@@ -194,14 +203,17 @@ public class VrLoco : MonoBehaviour
             return true;
 
         }
-        else { return false; }
+        else
+        {
+
+            return false;
+        }
     }
 
 
 
 
-
-    private void Update() // FixedUpdate is called once per 1/60s.
+    private void FixedUpdate() // FixedUpdate is called once per 1/60s.
     {
         MoveCharacter4Tic();
         CollideWallTic();

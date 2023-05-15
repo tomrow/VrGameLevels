@@ -7,6 +7,7 @@ using UnityEngine;
 public class InteractorRightController : MonoBehaviour
 {
     GameObject rightController;
+    int clicked;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,15 @@ public class InteractorRightController : MonoBehaviour
         Debug.Log("interacting");
 
         if (Input.GetAxis("XRI_Right_Trigger") > 0.8f)
+        {
+            //objectSpawner.SpawnObject();
+            clicked += 1;
+            if (clicked > 2) { clicked = 2; }
+
+        }
+        else
+        { clicked = 0; }
+        if (clicked == 1)
         {
             objectSpawner.SpawnObject();
         }

@@ -320,7 +320,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (touchRay.collider.gameObject.tag == "JumpStorageBoost")
             {
-                vspeed = 150;
+                vspeed = 40;
                 hspeed = 150;
                 onJumpRamp = true;
             }

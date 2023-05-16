@@ -518,9 +518,9 @@ public class PlayerMovement : MonoBehaviour
             //missed, maybe above a bottomless pit? whatever the ground is so far below we can hide the drop shadow
             dropShadowGraphics.enabled = false;
         }
-        if (Input.GetButton("XRI_Left_MenuButton") && Input.GetButton("XRI_Left_PrimaryButton") && Input.GetButton("XRI_Left_SecondaryButton"))
+        if (Input.GetButton("XRI_Left_PrimaryButton") && Input.GetButton("XRI_Left_SecondaryButton"))
         {
-            SceneManager.LoadScene("Pissmenu");
+            SceneManager.LoadScene("MainMenu");
         }
 
     }

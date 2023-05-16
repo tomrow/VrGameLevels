@@ -241,6 +241,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 324426059409310018, guid: 48de5ad330280524aa1a3cab8a813dec,
+        type: 3}
+      propertyPath: m_text
+      value: Welcome To Beans' Jovial Jaunt Through Board-Game Boardwalk
+      objectReference: {fileID: 0}
+    - target: {fileID: 324426059409310018, guid: 48de5ad330280524aa1a3cab8a813dec,
+        type: 3}
+      propertyPath: m_margin.z
+      value: -26.507408
+      objectReference: {fileID: 0}
     - target: {fileID: 553632333817204926, guid: 48de5ad330280524aa1a3cab8a813dec,
         type: 3}
       propertyPath: m_LocalPosition.x

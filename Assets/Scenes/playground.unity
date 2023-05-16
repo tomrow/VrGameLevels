@@ -1688,7 +1688,7 @@ PrefabInstance:
     - target: {fileID: 5655205401666960185, guid: 4ec219c0448207346871e14a969b814c,
         type: 3}
       propertyPath: nextlevel
-      value: Pissmenu
+      value: MainMenu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

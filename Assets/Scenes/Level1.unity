@@ -1254,6 +1254,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CustomXrRig
       objectReference: {fileID: 0}
+    - target: {fileID: 1898557117893131512, guid: 306ff8f2e8389804eb2871930963d921,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1898557117893131514, guid: 306ff8f2e8389804eb2871930963d921,
         type: 3}
       propertyPath: m_RootOrder
@@ -1535,6 +1540,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PLAYER
       objectReference: {fileID: 0}
+    - target: {fileID: 2856617574177655535, guid: a89c88f66ed3aa5439d4d2594060bf64,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3172559614374573202, guid: a89c88f66ed3aa5439d4d2594060bf64,
         type: 3}
       propertyPath: m_Avatar
@@ -1782,6 +1792,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1242413585894800119, guid: 9e34e72b9820b3843868b241a801770d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5999054158145471221, guid: 9e34e72b9820b3843868b241a801770d,
         type: 3}
       propertyPath: m_RootOrder

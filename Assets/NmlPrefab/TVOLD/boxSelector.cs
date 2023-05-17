@@ -28,7 +28,7 @@ public class boxSelector : MonoBehaviour
         if ((Counter >= Countermax) && starttimer)
         {
             
-            SceneManager.LoadScene("Level1");
+            SceneManager.LoadScene("Tutorial1");
         }
         if ((Counter >= Countermax) && ExitTimer)
         {

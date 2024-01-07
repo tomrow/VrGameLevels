@@ -6,9 +6,10 @@ public class JumperBumper : MonoBehaviour
 {
     public float power;
     bool animate;
+    int playSnd;
     float animCounter;
     public float counterSpeed;
-    float animatorSize = 82;
+    float animatorSize = 82; AudioSource jumpSoundControl;
     Transform animator;
 
     // Start is called before the first frame update
@@ -16,6 +17,7 @@ public class JumperBumper : MonoBehaviour
     {
         if (counterSpeed == 0f) { counterSpeed = 8f; }
         animator = transform.Find("hose");
+        jumpSoundControl = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -33,6 +35,8 @@ public class JumperBumper : MonoBehaviour
             }
 
         }
+        if (playSnd == 6) { jumpSoundControl.Play(); }
+        if(playSnd>0) { playSnd--; }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -42,7 +46,7 @@ public class JumperBumper : MonoBehaviour
             other.gameObject.transform.parent.parent.GetComponent<PlayerMovement>().speed2 *= 0.5f;
 
             other.gameObject.transform.parent.parent.transform.Translate(Vector3.up*transform.lossyScale.y);
-            animate = true; animCounter = 0f;
+            animate = true; animCounter = 0f; playSnd = 6;
         }
     }
 }

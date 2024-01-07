@@ -52,8 +52,10 @@ public class PlayerMovement : MonoBehaviour
     public Transform debugCubeUp;
     public Transform dropShadow;
     GameObject launchSoundObj;
+    GameObject jumpSoundObj;
     public Transform characterAnimator;
-    AudioSource launchSoundControl;
+    AudioSource launchSoundControl; 
+    AudioSource jumpSoundControl;
     MeshRenderer dropShadowGraphics;
     //float currentSpeed;
     //float currentrunAngle;
@@ -78,7 +80,9 @@ public class PlayerMovement : MonoBehaviour
         //Get component collections
         debugCube = transform.Find("Data");
         launchSoundObj = debugCube.Find("Sound").Find("LaunchSound").gameObject;
+        jumpSoundObj = debugCube.Find("Sound").Find("JumpSound").gameObject;
         launchSoundControl = launchSoundObj.GetComponent<AudioSource>();
+        jumpSoundControl = jumpSoundObj.GetComponent<AudioSource>();
         dropShadow = transform.Find("dropShadow");
         dropShadowGraphics = dropShadow.gameObject.GetComponent<MeshRenderer>();
         characterAnimator = transform.Find("body");
@@ -358,6 +362,7 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.Translate(transform.up * (transform.localScale.y * 0.25f), Space.World);
             playerActionMode = 9;
+            jumpSoundControl.Play();
         }
     }
 
